@@ -1,0 +1,52 @@
+.container {
+    height: 100vh;
+    background-color: pink;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    flex: 1;
+    padding: 10px;
+    overflow: auto;
+}
+
+.th {
+    background-color: magenta;
+    border: 1px solid black;
+    padding: 5px 0;
+}
+
+.td {
+    text-align: center;
+    border: 1px solid black;
+    padding: 0px 5px;
+}
+
+.table_ {
+    border-spacing: 5px;
+    background-color: rgb(228, 131, 131);
+    margin-top: 10px;
+    min-width:60%;
+
+}
+
+.edit {
+    margin: 0 5px;
+    border: none;
+    padding: 0 5px;
+}
+
+.delete {
+    margin: 0 5px;
+    border: none;
+    padding: 0 5px;
+}
+
+.edit:hover {
+    background-color: black;
+    color: orange;
+}
+
+.delete:hover {
+    background-color: black;
+    color: red;
+}
