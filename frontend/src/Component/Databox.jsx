@@ -15,6 +15,7 @@ const Databox = ({ setinput, setauthenticated, fetchdata, fetch }) => {
     const [signupData, setsignupData] = useState([]);
 
     const editf = (country, state, number, dob, company, designation, experience, salary, id) => {
+        dob = new Date(dob).toISOString().split("T")[0];
         setinput({
             country,
             state,
@@ -28,30 +29,28 @@ const Databox = ({ setinput, setauthenticated, fetchdata, fetch }) => {
         })
     }
 
-    const deletef = (id) => {
+    const deletef = async (id) => {
         setisloading(id);
-        setTimeout(async () => {
-            try {
-                let res = await axios.delete(`http://localhost:3000/api/data/delete/${id}`);
-                if (res.data.success) {
-                    await fetchdata();
-                    toast.success(res.data.message);
-                }
+        try {
+            let res = await axios.delete(`http://localhost:3000/api/data/delete/${id}`);
+            if (res.data.success) {
+                await fetchdata();
+                toast.success(res.data.message);
             }
-            catch (err) {
-                if (err.response) {
-                    console.log("/todo/delete error -");
-                    console.log(err.response);
-                    toast.error(err.response.data.message);
-                }
-                else {
-                    toast.warn("server error");
-                }
+        }
+        catch (err) {
+            if (err.response) {
+                console.log("/todo/delete error -");
+                console.log(err.response);
+                toast.error(err.response.data.message);
             }
-            finally {
-                setisloading(null);
+            else {
+                toast.warn("server error");
             }
-        }, 2000)
+        }
+        finally {
+            setisloading(null);
+        }
     }
 
     let signup_data_fetch = async () => {
@@ -81,20 +80,22 @@ const Databox = ({ setinput, setauthenticated, fetchdata, fetch }) => {
 
     return (
         <>
-            <div className='flex-6 overflow-auto flex flex-col items-center'>
-                <h1 className='mt-[50px] mb-[10px] text-xl font-bold'>Data Table</h1>
-                <div>
+            <div className='flex-6 overflow-auto flex flex-col items-center bg-[#f8fbff] text-gray-800'>
+                <h1 className='mt-[50px] mb-[10px] text-xl font-bold text-indigo-600'>Data Table</h1>
+
+                <div className='mb-[15px] bg-white p-3 rounded shadow-sm border border-blue-200'>
                     <div>
-                        <strong>Your Name : </strong>
+                        <strong className='text-indigo-600'>Your Name : </strong>
                         <span>{signupData.name}</span>
                     </div>
                     <div>
-                        <strong>Your Email : </strong>
+                        <strong className='text-indigo-600'>Your Email : </strong>
                         <span>{signupData.email}</span>
                     </div>
                 </div>
-                <table className="border-separate">
-                    <tr className=''>
+
+                <table className="border-separate bg-white">
+                    <tr className= 'text-indigo-600'>
                         <th className="border-[1px] px-[4px]">Country</th>
                         <th className="border-[1px] px-[4px]">State</th>
                         <th className="border-[1px] px-[4px]">Number</th>
@@ -105,40 +106,64 @@ const Databox = ({ setinput, setauthenticated, fetchdata, fetch }) => {
                         <th className="border-[1px] px-[4px]">Salary</th>
                         <th className="border-[1px] px-[4px]">Action</th>
                     </tr>
-                    {/* <tr>
-                        <td className='text-center border-[1px] px-[4px]'>Aman Prasad</td>
-                        <td className='text-center border-[1px] px-[4px]'>amanprasad3030@gmail.com</td>
-                        <td className='text-center border-[1px] px-[4px]'>8582884500</td>
-                        <td className='text-center border-[1px] px-[4px]'>Bharat</td>
-                        <td className='text-center border-[1px] px-[4px]'>21</td>
-                        <td className='text-center border-[1px] px-[4px]'><button className='mr-[5px] hover:text-yellow-500 hover:bg-black'>Edit</button><button className='hover:text-red-600 hover:bg-black'>Delete</button></td>
-                    </tr> */}
 
-                    {fetch.length > 0 ? (fetch.map((data) => {
-                        return (
-                            <tr>
-                                <td className='text-center border-[1px] px-[4px]'>{data.country}</td>
-                                <td className='text-center border-[1px] px-[4px]'>{data.state}</td>
-                                <td className='text-center border-[1px] px-[4px]'>{data.number}</td>
-                                <td className='text-center border-[1px] px-[4px]'>{data.dob}</td>
-                                <td className='text-center border-[1px] px-[4px]'>{data.company}</td>
-                                <td className='text-center border-[1px] px-[4px]'>{data.designation}</td>
-                                <td className='text-center border-[1px] px-[4px]'>{data.experience}</td>
-                                <td className='text-center border-[1px] px-[4px]'>{data.salary}</td>
-                                <td className='text-center border-[1px] px-[4px]'>
-                                    <button onClick={() => { editf(data.country, data.state, data.number, data.dob, data.company, data.designation, data.experience, data.salary, data._id) }} className='mr-[5px] hover:text-yellow-500 hover:bg-black'>Edit</button>
-                                    <button disabled={isloading} onClick={() => { deletef(data._id) }} className='hover:text-red-600 hover:bg-black w-[46px] flex justify-center items-center disabled:cursor-not-allowed'>{isloading === data._id ? <Loader width={15} height={15} /> : "Delete"}</button>
-                                </td>
-                            </tr>
-                        )
-                    })) : (
+                    {fetch.length > 0 ? (
+                        fetch.map((data) => {
+                            return (
+                                <tr className='hover:bg-blue-50'>
+                                    <td className='text-center border-[1px] px-[4px]'>{data.country}</td>
+                                    <td className='text-center border-[1px] px-[4px]'>{data.state}</td>
+                                    <td className='text-center border-[1px] px-[4px]'>{data.number}</td>
+                                    <td className='text-center border-[1px] px-[4px]'>{data.dob}</td>
+                                    <td className='text-center border-[1px] px-[4px]'>{data.company}</td>
+                                    <td className='text-center border-[1px] px-[4px]'>{data.designation}</td>
+                                    <td className='text-center border-[1px] px-[4px]'>{data.experience}</td>
+                                    <td className='text-center border-[1px] px-[4px]'>{data.salary}</td>
+
+                                    <td className='text-center border-[1px] px-[4px]'>
+                                        <button
+                                            onClick={() => {
+                                                editf(
+                                                    data.country,
+                                                    data.state,
+                                                    data.number,
+                                                    data.dob,
+                                                    data.company,
+                                                    data.designation,
+                                                    data.experience,
+                                                    data.salary,
+                                                    data._id
+                                                )
+                                            }}
+                                            className='mr-[5px] hover:text-yellow-500 hover:bg-black text-blue-700 bg-gray-100 px-1 rounded'
+                                        >
+                                            Edit
+                                        </button>
+
+                                        <button
+                                            disabled={isloading}
+                                            onClick={() => { deletef(data._id) }}
+                                            className='hover:text-red-600 hover:bg-black w-[46px] flex justify-center items-center disabled:cursor-not-allowed bg-gray-100 text-red-700 rounded'
+                                        >
+                                            {isloading === data._id ? <Loader width={15} height={15} /> : "Delete"}
+                                        </button>
+                                    </td>
+                                </tr>
+                            )
+                        })
+                    ) : (
                         <tr>
-                            <td colSpan={9} className='border-[1px] text-center py-[10px] '>No Data Found</td>
+                            <td
+                                colSpan={9}
+                                className='border-[1px] border-black text-center py-[10px] text-red-600'
+                            >
+                                No Data Found
+                            </td>
                         </tr>
                     )}
-
                 </table>
             </div>
+
         </>
     )
 }

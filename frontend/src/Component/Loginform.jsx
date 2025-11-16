@@ -69,7 +69,7 @@ const Loginform = ({ setauthenticated }) => {
             Login Form
           </div>
 
-          <div className="w-full bg-purple-50 border border-purple-200 rounded-lg px-4 py-3
+          <div className="w-full bg-purple-50 border border-purple-200 rounded-lg px-4 py-1
                         flex items-center gap-2">
             <label className="text-gray-700 font-medium whitespace-nowrap text-sm sm:text-base">
               Email:
@@ -84,7 +84,7 @@ const Loginform = ({ setauthenticated }) => {
             />
           </div>
 
-          <div className="w-full bg-purple-50 border border-purple-200 rounded-lg px-4 py-3
+          <div className="w-full bg-purple-50 border border-purple-200 rounded-lg px-4 py-1
                         flex items-center gap-2">
             <label
               htmlFor="password"

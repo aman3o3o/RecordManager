@@ -37,76 +37,79 @@ const Todoform = ({ setauthenticated }) => {
     const submit = async (e) => {
         e.preventDefault();
         setisloading("submit");
-        setTimeout(async () => {
-            if (input.id) {
-                try {
-                    let res = await axios.patch(`http://localhost:3000/api/data/update/${input.id}`, input);
-                    if (res.data.success) {
-                        await fetchdata();
-                        toast.success(res.data.message);
-                        setinput({
-                            experience: "",
-                            salary: "",
-                            state: "",
-                            designation: "",
-                            number: "",
-                            country: "",
-                            dob: "",
-                            company: "",
-                            id: ""
-                        })
-                    }
-                }
-                catch (err) {
-                    if (err.response) {
-                        console.log("/todo/update error -");
-                        console.log(err.response);
-                        toast.error(err.response.data.message);
-                    }
-                    else {
-                        toast.warn("server error");
-                    }
+        if (input.id) {
+            try {
+                let res = await axios.patch(`http://localhost:3000/api/data/update/${input.id}`, input);
+                if (res.data.success) {
+                    await fetchdata();
+                    toast.success(res.data.message);
+                    setinput({
+                        experience: "",
+                        salary: "",
+                        state: "",
+                        designation: "",
+                        number: "",
+                        country: "",
+                        dob: "",
+                        company: "",
+                        id: ""
+                    })
                 }
             }
-            else {
-                try {
-                    let res = await axios.post(`http://localhost:3000/api/data/insert/${localStorage.getItem("email")}`, input);
-                    if (res.data.success) {
-                        await fetchdata();
-                        toast.success(res.data.message);
-                        setinput({
-                            experience: "",
-                            salary: "",
-                            state: "",
-                            designation: "",
-                            number: "",
-                            country: "",
-                            dob: "",
-                            company: "",
-                            id: ""
-                        })
-                    }
+            catch (err) {
+                if (err.response) {
+                    console.log("/todo/update error -");
+                    console.log(err.response);
+                    toast.error(err.response.data.message);
                 }
-                catch (err) {
-                    if (err.response) {
-                        console.log("/todo/insert error -");
-                        console.log(err.response);
-                        toast.error(err.response.data.message);
-                    }
-                    else {
-                        toast.warn("server error");
-                    }
+                else {
+                    toast.warn("server error");
                 }
             }
-            setisloading(null);
-        }, 3000)
+            finally {
+                setisloading(null);
+            }
+        }
+        else {
+            try {
+                let res = await axios.post(`http://localhost:3000/api/data/insert/${localStorage.getItem("email")}`, input);
+                if (res.data.success) {
+                    await fetchdata();
+                    toast.success(res.data.message);
+                    setinput({
+                        experience: "",
+                        salary: "",
+                        state: "",
+                        designation: "",
+                        number: "",
+                        country: "",
+                        dob: "",
+                        company: "",
+                        id: ""
+                    })
+                }
+            }
+            catch (err) {
+                if (err.response) {
+                    console.log("/todo/insert error -");
+                    console.log(err.response);
+                    toast.error(err.response.data.message);
+                }
+                else {
+                    toast.warn("server error");
+                }
+            }
+            finally {
+                setisloading(null);
+            }
+        }
     }
 
     const logout = () => {
         setisloading("logout");
+        localStorage.removeItem("token");
+        localStorage.removeItem("email");
         setTimeout(() => {
-            localStorage.removeItem("token");
-            localStorage.removeItem("email");
             toast.success("you are successfully logged out");
             setTimeout(() => {
                 setauthenticated(false);
@@ -138,14 +141,15 @@ const Todoform = ({ setauthenticated }) => {
 
     return (
         <>
-            <div className='flex h-[100vh] overflow-hidden border-[3px] border-blue-400'>
-                <form onSubmit={submit} className='flex-4 flex flex-col justify-center items-center'>
-                    <h1 className='text-xl font-bold mb-[10px]'>Input Table</h1>
+            <div className='flex h-[100vh] overflow-hidden border-[3px] border-blue-400 bg-[#f8fbff]'>
+                <form onSubmit={submit} className='flex-4 flex flex-col justify-center items-center text-gray-800'>
+                    <h1 className='text-xl font-bold mb-[10px] text-indigo-600'>Input Table</h1>
                     <div className='w-[70%] h-[60%] flex flex-col justify-evenly'>
+
                         <div className='w-[70%] ml-[10px]'>
-                            <label htmlFor='country' className='cursor-pointer'>Country : </label>
+                            <label htmlFor='country' className='cursor-pointer text-indigo-600'>Country : </label>
                             <input
-                                className=""
+                                className="bg-white text-gray-900 border border-indigo-300 px-2 rounded"
                                 placeholder="Enter country"
                                 value={input.country}
                                 name="country"
@@ -153,9 +157,11 @@ const Todoform = ({ setauthenticated }) => {
                                 id="country"
                                 required />
                         </div>
+
                         <div className='w-[70%] ml-[10px]'>
-                            <label htmlFor='state' className='cursor-pointer'>State : </label>
+                            <label htmlFor='state' className='cursor-pointer text-indigo-600'>State : </label>
                             <input
+                                className="bg-white text-gray-900 border border-indigo-300 px-2 rounded"
                                 placeholder="Enter state"
                                 value={input.state}
                                 name="state"
@@ -163,10 +169,12 @@ const Todoform = ({ setauthenticated }) => {
                                 id="state"
                                 required />
                         </div>
+
                         <div className='w-[70%] ml-[10px]'>
-                            <label htmlFor='dob' className='cursor-pointer'>Dob : </label>
+                            <label htmlFor='dob' className='cursor-pointer text-indigo-600'>Dob : </label>
                             <input
                                 type="date"
+                                className="bg-white text-gray-900 border border-indigo-300 px-2 rounded"
                                 placeholder="Enter date of birth"
                                 value={input.dob}
                                 name="dob"
@@ -174,9 +182,11 @@ const Todoform = ({ setauthenticated }) => {
                                 id="dob"
                                 required />
                         </div>
+
                         <div className='w-[70%] ml-[10px]'>
-                            <label htmlFor='number' className='cursor-pointer'>Number : </label>
+                            <label htmlFor='number' className='cursor-pointer text-indigo-600'>Number : </label>
                             <input
+                                className="bg-white text-gray-900 border border-indigo-300 px-2 rounded"
                                 placeholder="Enter number"
                                 value={input.number}
                                 name="number"
@@ -184,9 +194,11 @@ const Todoform = ({ setauthenticated }) => {
                                 id="number"
                                 required />
                         </div>
+
                         <div className='w-[70%] ml-[10px]'>
-                            <label htmlFor='company' className='cursor-pointer'>Company : </label>
+                            <label htmlFor='company' className='cursor-pointer text-indigo-600'>Company : </label>
                             <input
+                                className="bg-white text-gray-900 border border-indigo-300 px-2 rounded"
                                 placeholder="Enter company"
                                 value={input.company}
                                 name="company"
@@ -194,9 +206,11 @@ const Todoform = ({ setauthenticated }) => {
                                 id="company"
                                 required />
                         </div>
+
                         <div className='w-[70%] ml-[10px]'>
-                            <label htmlFor='designation' className='cursor-pointer'>Designation : </label>
+                            <label htmlFor='designation' className='cursor-pointer text-indigo-600'>Designation : </label>
                             <input
+                                className="bg-white text-gray-900 border border-indigo-300 px-2 rounded"
                                 placeholder="Enter designation"
                                 value={input.designation}
                                 name="designation"
@@ -204,9 +218,11 @@ const Todoform = ({ setauthenticated }) => {
                                 id="designation"
                                 required />
                         </div>
+
                         <div className='w-[70%] ml-[10px]'>
-                            <label htmlFor='salary' className='cursor-pointer'>Salary : </label>
+                            <label htmlFor='salary' className='cursor-pointer text-indigo-600'>Salary : </label>
                             <input
+                                className="bg-white text-gray-900 border border-indigo-300 px-2 rounded"
                                 placeholder="Enter salary"
                                 value={input.salary}
                                 name="salary"
@@ -214,9 +230,11 @@ const Todoform = ({ setauthenticated }) => {
                                 id="salary"
                                 required />
                         </div>
+
                         <div className='w-[70%] ml-[10px]'>
-                            <label htmlFor='experience' className='cursor-pointer'>Experience : </label>
+                            <label htmlFor='experience' className='cursor-pointer text-indigo-600'>Experience : </label>
                             <input
+                                className="bg-white text-gray-900 border border-indigo-300 px-2 rounded"
                                 placeholder="Enter experience"
                                 value={input.experience}
                                 name="experience"
@@ -224,13 +242,31 @@ const Todoform = ({ setauthenticated }) => {
                                 id="experience"
                                 required />
                         </div>
+
                     </div>
-                    <div className='flex items-center'>
-                        <button disabled={isloading} type="submit" className='mr-[50px] px-[5px] cursor-pointer disabled:cursor-not-allowed hover:bg-gray-50 hover:text-green-500 text-[20px] w-[75px]'>{isloading === "submit" ? <Loader width={25} height={25} /> : (input.id ? "Update" : "Submit")}</button>
-                        <button disabled={isloading} type="button" onClick={logout} className='px-[5px] cursor-pointer hover:text-red-500 inline-flex justify-center items-center w-[60px] disabled:cursor-not-allowed text-[20px]'>{isloading === "logout" ? <Loader width={22} height={22} /> : "Logout"}</button>
+
+                    <div className='flex items-center mt-[5px]'>
+
+                        <button
+                            disabled={isloading}
+                            type="submit"
+                            className='mr-[50px] cursor-pointer disabled:cursor-not-allowed hover:text-green-600 text-[20px] w-[75px] rounded'
+                        >
+                            {isloading === "submit" ? <Loader width={25} height={25} /> : (input.id ? "Update" : "Submit")}
+                        </button>
+
+                        <button
+                            disabled={isloading}
+                            type="button"
+                            onClick={logout}
+                            className='cursor-pointer hover:text-red-600 inline-flex justify-center items-center w-[60px] disabled:cursor-not-allowed text-[20px] bg-white border-red-400 rounded'
+                        >
+                            {isloading === "logout" ? <Loader width={22} height={22} /> : "Logout"}
+                        </button>
+
                     </div>
                 </form>
-                <Databox setinput={setinput} setauthenticated={setauthenticated} fetch={fetch} fetchdata={fetchdata}/>
+                <Databox setinput={setinput} setauthenticated={setauthenticated} fetch={fetch} fetchdata={fetchdata} />
             </div>
         </>
     )
