@@ -135,7 +135,7 @@ const Databox = ({ setinput, setauthenticated, fetchdata, fetch }) => {
                                                     data._id
                                                 )
                                             }}
-                                            className='mr-[5px] hover:text-yellow-500 hover:bg-black text-blue-700 bg-gray-100 px-1 rounded'
+                                            className='mr-[5px] hover:bg-gray-200 text-blue-700 px-1 rounded'
                                         >
                                             Edit
                                         </button>
@@ -143,7 +143,7 @@ const Databox = ({ setinput, setauthenticated, fetchdata, fetch }) => {
                                         <button
                                             disabled={isloading}
                                             onClick={() => { deletef(data._id) }}
-                                            className='hover:text-red-600 hover:bg-black w-[46px] flex justify-center items-center disabled:cursor-not-allowed bg-gray-100 text-red-700 rounded'
+                                            className='hover:text-red-600 hover:bg-gray-200 w-[46px] flex justify-center items-center disabled:cursor-not-allowed text-red-700 rounded px-1'
                                         >
                                             {isloading === data._id ? <Loader width={15} height={15} /> : "Delete"}
                                         </button>
