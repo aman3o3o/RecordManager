@@ -13,6 +13,7 @@ import Data from './Component/Data'
 import ForgotPassword from './Component/Forgotpassword'
 import Resetpassword from './Component/Resetpassword'
 import Loader from './Component/Loader'
+import RegisteredUser from './Component/RegisteredUser'
 
 const App = () => {
 
@@ -28,6 +29,7 @@ const App = () => {
                 <Route path="*" element={<WrongRoute />} />
                 <Route path="/forgotpassword" element={<ForgotPassword/>}/>
                 <Route path="/resetpassword/:token" element={<Resetpassword/>}/>
+                <Route path="/totaluser" element={authenticated?<RegisteredUser/>:<Unauthenticated/>}/>
             </Routes>
         </>
     )
