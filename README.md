@@ -8,6 +8,7 @@ A web app where users can signup, login and manage their own records using CRUD 
 - JWT authentication
 - Password encryption
 - Forgot password via email
+- Dedicated ADMIN panel, where only ADMIN can view all registered Users and their Data in the database
 - MVC folder structure
 - Button click loader for user friendly
 
