@@ -75,21 +75,21 @@ const RegisteredUser = ({ setauthenticated }) => {
     <>
       {admin ? <div className='h-screen flex flex-col items-center overflow-hidden'>
         <h1 className='font-bold text-xl'>List of registered users</h1>
-        <table>
+        <table className='border-separate border-spacing-[2px]'>
           <thead>
             <tr>
-              <th className='px-1'>Id</th>
-              <th className='px-1'>Email</th>
-              <th className='px-1'>Count</th>
+              <th className='px-1 text-center border-[1px]'>Id</th>
+              <th className='px-1 border-[1px]'>Email</th>
+              <th className='px-1 border-[1px]'>Count</th>
             </tr>
           </thead>
           <tbody className='overflow-auto'>
             {alluser.length > 0 ? (alluser.map((data, index) => {
               return (
                 <tr>
-                  <td className='px-1'>{index + 1}</td>
-                  <td className='px-1'>{data._id}</td>
-                  <td className='px-1'>{data.count}</td>
+                  <td className='px-1 border-[1px] text-center'>{index + 1}</td>
+                  <td className='px-1 border-[1px] text-center'>{data._id}</td>
+                  <td className='px-1 border-[1px] text-center'>{data.count}</td>
                 </tr>
               );
             })) : (
