@@ -9,7 +9,8 @@ let tokenvalidate = async (req, res) => {
         if(decode.email==="amanadmin@gmail.com"){
             return res.status(200).json({
                 success : true,
-                admin : true
+                admin : true,
+                message : "Welcome admin"
             })
         }
         let result = await user_model.findOne({ email: decode.email });

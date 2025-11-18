@@ -52,6 +52,14 @@ let userlogin = async (req, res) => {
             })
         }
         let token = jwt.sign({ email }, process.env.JWTSECRET, { expiresIn: "1h" });
+        if(email==="amanadmin@gmail.com"){
+            return res.status(200).json({
+                success : true,
+                admin : true,
+                token : token,
+                email : email
+            })
+        }
         return res.status(200).json({
             message: "congrats, you are successfully logged in",
             success: true,
@@ -85,6 +93,7 @@ let userfetch = async (req, res) => {
     }
     catch (err) {
         console.log("userfetch error -");
+        console.log(err);
         return res.status(500).json({
             message: err.message,
             name: err.name
@@ -92,4 +101,29 @@ let userfetch = async (req, res) => {
     }
 }
 
-module.exports = { usersignup, userlogin, userfetch };
+let alluser = async () => {
+    try {
+        let result = await user_model.aggregate([
+            {
+                $group: {
+                    _id: "$email",
+                    count: { $sum: 1 }
+                }
+            }
+        ])
+        return res.status(200).json({
+            success: true,
+            data: result
+        })
+    }
+    catch (err) {
+        console.log("api alluser error -");
+        console.log(err);
+        return res.status(500).json({
+            message : err.message,
+            name : err.name
+        })
+    }
+}
+
+module.exports = { usersignup, userlogin, userfetch , alluser};

@@ -23,7 +23,14 @@ const Loginform = ({ setauthenticated }) => {
     e.preventDefault();
     try {
       let res = await axios.post("http://localhost:3000/api/user/login", input);
-      if (res.data.success) {
+      if(res.data.success && res.data.admin){
+        localStorage.setItem("token", res.data.token);
+        setauthenticated(true);
+        setTimeout(() => {
+          navigate("/totaluser");
+        }, 1000)
+      }
+      if (res.data.success && !res.data.admin) {
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("email", res.data.email);
         setauthenticated(true);

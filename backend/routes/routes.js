@@ -1,6 +1,6 @@
 const express = require("express");
 const { datafetch, datainsert, dataupdate, datadelete } = require("../controller/data_controller");
-const { usersignup, userlogin, userfetch } = require("../controller/user_controller");
+const { usersignup, userlogin, userfetch, alluser } = require("../controller/user_controller");
 const { tokenvalidate } = require("../controller/token_controller");
 const { forgotpassword, resetpassword } = require("../controller/password_controller");
 
@@ -18,6 +18,7 @@ let userroutes = express.Router();
 userroutes.post("/user/signup",usersignup);
 userroutes.post("/user/login",userlogin);
 userroutes.get("/user/fetch/:email",userfetch);
+userroutes.get("/alluser",alluser);
 
 // token controller
 let tokenroutes = express.Router();
