@@ -60,6 +60,17 @@ const RegisteredUser = ({ setauthenticated }) => {
     validation();
   }, [])
 
+  const logout = () => {
+    localStorage.clear();
+    setTimeout(() => {
+      toast.success("you are successfully logged out");
+      setTimeout(() => {
+        setauthenticated(false);
+        navigate("/");
+      }, 1000)
+    }, 200)
+  }
+
   return (
     <>
       {admin ? <div className='h-screen flex flex-col items-center overflow-hidden'>
@@ -89,6 +100,7 @@ const RegisteredUser = ({ setauthenticated }) => {
             }
           </tbody>
         </table>
+        <div onClick={logout} className='hover:text-red-600 hover:cursor-pointer'>Logout</div>
       </div>
         : <Accessdenied />}
     </>
