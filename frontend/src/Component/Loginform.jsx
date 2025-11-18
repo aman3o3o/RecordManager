@@ -23,7 +23,7 @@ const Loginform = ({ setauthenticated }) => {
     e.preventDefault();
     try {
       let res = await axios.post("http://localhost:3000/api/user/login", input);
-      if(res.data.success && res.data.admin){
+      if (res.data.success && res.data.admin) {
         localStorage.setItem("token", res.data.token);
         setauthenticated(true);
         setTimeout(() => {
@@ -39,6 +39,10 @@ const Loginform = ({ setauthenticated }) => {
         }, 2000)
         toast.success(res.data.message);
       }
+      setinput({
+        email: "",
+        password: ""
+      })
     }
     catch (err) {
       if (err.response) {
@@ -50,10 +54,6 @@ const Loginform = ({ setauthenticated }) => {
         toast.warn("server error");
       }
     }
-    setinput({
-      email: "",
-      password: ""
-    })
   }
 
   const forgottask = () => {

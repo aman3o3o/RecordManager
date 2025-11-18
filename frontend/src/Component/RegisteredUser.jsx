@@ -73,34 +73,36 @@ const RegisteredUser = ({ setauthenticated }) => {
 
   return (
     <>
-      {admin ? <div className='h-screen flex flex-col items-center overflow-hidden'>
-        <h1 className='font-bold text-xl'>List of registered users</h1>
-        <table className='border-separate border-spacing-[2px]'>
-          <thead>
-            <tr>
-              <th className='px-1 text-center border-[1px]'>Id</th>
-              <th className='px-1 border-[1px]'>Email</th>
-              <th className='px-1 border-[1px]'>Count</th>
-            </tr>
-          </thead>
-          <tbody className='overflow-auto'>
-            {alluser.length > 0 ? (alluser.map((data, index) => {
-              return (
-                <tr>
-                  <td className='px-1 border-[1px] text-center'>{index + 1}</td>
-                  <td className='px-1 border-[1px] text-center'>{data._id}</td>
-                  <td className='px-1 border-[1px] text-center'>{data.count}</td>
-                </tr>
-              );
-            })) : (
+      {admin ? <div className='h-screen border-[20px] border-indigo-200'>
+        <div className='h-full flex flex-col items-center overflow-hidden'>
+          <h1 className='font-bold text-xl text-indigo-600 my-[10px]'>List of registered users</h1>
+          <table className='border-separate border-spacing-[2px]'>
+            <thead>
               <tr>
-                <td className='colSpan={3} flex justify-center items-center'>No Data Found</td>
+                <th className='px-1 text-center border-[1px] text-indigo-600 border-black'>Id</th>
+                <th className='px-1 border-[1px] text-indigo-600 border-black'>Email</th>
+                <th className='px-1 border-[1px] text-indigo-600 border-black'>Count</th>
               </tr>
-            )
-            }
-          </tbody>
-        </table>
-        <div onClick={logout} className='hover:text-red-600 hover:cursor-pointer'>Logout</div>
+            </thead>
+            <tbody className='overflow-auto'>
+              {alluser.length > 0 ? (alluser.map((data, index) => {
+                return (
+                  <tr>
+                    <td className='px-1 border-[1px] text-center font-[600]'>{index + 1}</td>
+                    <td className='px-1 border-[1px] text-center font-[600]'>{data._id}</td>
+                    <td className='px-1 border-[1px] text-center font-[600]'>{data.count}</td>
+                  </tr>
+                );
+              })) : (
+                <tr>
+                  <td className='colSpan={3} flex justify-center items-center'>No Data Found</td>
+                </tr>
+              )
+              }
+            </tbody>
+          </table>
+          <div onClick={logout} className='hover:text-red-600 hover:cursor-pointer'>Logout</div>
+        </div>
       </div>
         : <Accessdenied />}
     </>

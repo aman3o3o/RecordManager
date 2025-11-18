@@ -53,12 +53,12 @@ let userlogin = async (req, res) => {
             })
         }
         let token = jwt.sign({ email }, process.env.JWTSECRET, { expiresIn: "1h" });
-        if(email==="amanadmin@gmail.com"){
+        if (email === "amanadmin@gmail.com") {
             return res.status(200).json({
-                success : true,
-                admin : true,
-                token : token,
-                email : email
+                success: true,
+                admin: true,
+                token: token,
+                email: email
             })
         }
         return res.status(200).json({
@@ -102,9 +102,14 @@ let userfetch = async (req, res) => {
     }
 }
 
-let alluser = async (req,res) => {
+let alluser = async (req, res) => {
     try {
-        let result = await data_model.aggregate([
+        let result = await user_model.aggregate([
+            {
+                $match: {
+                    email: { $ne: "amanadmin@gmail.com" }
+                }
+            },
             {
                 $group: {
                     _id: "$email",
@@ -122,10 +127,10 @@ let alluser = async (req,res) => {
         console.log("api alluser error -");
         console.log(err);
         return res.status(500).json({
-            message : err.message,
-            name : err.name
+            message: err.message,
+            name: err.name
         })
     }
 }
 
-module.exports = { usersignup, userlogin, userfetch , alluser};
+module.exports = { usersignup, userlogin, userfetch, alluser };
