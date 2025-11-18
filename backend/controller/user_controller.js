@@ -1,3 +1,4 @@
+const data_model = require("../model/data_model/data_model");
 const user_model = require("../model/user_model/user_model");
 const { signup_validate, login_validate } = require("../validation/user_validation");
 const bcrypt = require("bcrypt");
@@ -101,9 +102,9 @@ let userfetch = async (req, res) => {
     }
 }
 
-let alluser = async () => {
+let alluser = async (req,res) => {
     try {
-        let result = await user_model.aggregate([
+        let result = await data_model.aggregate([
             {
                 $group: {
                     _id: "$email",
@@ -111,6 +112,7 @@ let alluser = async () => {
                 }
             }
         ])
+        console.log(result);
         return res.status(200).json({
             success: true,
             data: result

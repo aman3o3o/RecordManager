@@ -35,7 +35,7 @@ const RegisteredUser = ({ setauthenticated }) => {
 
   const get_alluser = async () => {
     try {
-      let res = await axios.get("http://localhost:8000/api/alluser");
+      let res = await axios.get("http://localhost:3000/api/alluser");
       if (res.data.success && res.data.data.length > 0) {
         setalluser(res.data.data);
       }
