@@ -75,8 +75,8 @@ const RegisteredUser = ({ setauthenticated }) => {
     <>
       {admin ? <div className='h-screen border-[20px] border-indigo-200'>
         <div className='h-full flex flex-col items-center overflow-hidden'>
-          <h1 className='font-bold text-xl text-indigo-600 my-[10px]'>List of registered users</h1>
-          <table className='border-separate border-spacing-[2px]'>
+          <h1 className='font-bold text-xl text-indigo-600 mt-[20px]'>List of registered users and their total count of Data</h1>
+          <table className='border-separate border-spacing-[2px] my-[10px]'>
             <thead>
               <tr>
                 <th className='px-1 text-center border-[1px] text-indigo-600 border-black'>Id</th>
@@ -89,14 +89,14 @@ const RegisteredUser = ({ setauthenticated }) => {
                 return (
                   <tr>
                     <td className='px-1 border-[1px] text-center font-[600]'>{index + 1}</td>
-                    <td className='px-1 border-[1px] text-center font-[600]'>{data._id}</td>
+                    <td className='px-1 border-[1px] text-center font-[600]'>{data.email}</td>
                     <td className='px-1 border-[1px] text-center font-[600]'>{data.count}</td>
                   </tr>
                 );
               })) : (
-                <tr>
-                  <td className='colSpan={3} flex justify-center items-center'>No Data Found</td>
-                </tr>
+                  <tr>
+                    <td colSpan={3} className='border-[1px] text-center px-[100px]'>No Data Found</td>
+                  </tr>
               )
               }
             </tbody>
@@ -110,3 +110,4 @@ const RegisteredUser = ({ setauthenticated }) => {
 }
 
 export default RegisteredUser
+

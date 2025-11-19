@@ -104,46 +104,27 @@ let userfetch = async (req, res) => {
 
 let alluser = async (req, res) => {
     try {
-        let result = await user_model.aggregate([
-            {
-                $match: {
-                    email: { $ne: "amanadmin@gmail.com" }
-                }
-            },
-            {
-                $group: {
-                    _id: "$email",
-                    count: { $sum: 1 }
-                }
-            }
-        ])
+        let signup_data = await user_model.find();
+        let todo_data = await data_model.find();
 
-        // let result = await user_model.aggregate([
-        //     {
-        //         $lookup: {
-        //             from: "todos",
-        //             localField: "email",
-        //             foreignField: "email",
-        //             as: "userDetails"
-        //         }
-        //     },
-        //     {
-        //         $match: {
-        //             email: { $ne: "amanadmin@gmail.com" }
-        //         }
-        //     },
-        //     {
-        //         $project: {
-        //             email: 1,
-        //             count: { $size: "$userDetails" }
-        //         }
-        //     }
-        // ])
+        let result = signup_data.map((s) => {
+            return {
+                email: s.email,
+                count: todo_data.filter((t) => {
+                    return t.email === s.email;
+                }).length
+            }
+        });
+
+        let filtered_result = result.filter(data=>(
+            data.email != "amanadmin@gmail.com"
+        ))
+
 
         console.log(result);
         return res.status(200).json({
             success: true,
-            data: result
+            data: filtered_result
         })
     }
     catch (err) {
