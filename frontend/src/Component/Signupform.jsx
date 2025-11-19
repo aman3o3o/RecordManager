@@ -3,10 +3,13 @@ import { Link, Navigate, useNavigate } from 'react-router-dom'
 import signup_img from "../images/signup.png"
 import axios from 'axios'
 import { toast } from 'react-toastify'
+import Loader from './Loader'
 
 const Signupform = () => {
 
     const navigate = useNavigate();
+
+    const [loader, setloader] = useState(null);
 
     const [input, setinput] = useState({
         name: "",
@@ -21,6 +24,7 @@ const Signupform = () => {
     }
 
     const submit = async (e) => {
+        setloader("register");
         e.preventDefault();
         try {
             let res = await axios.post("http://localhost:3000/api/user/signup", input);
@@ -58,6 +62,9 @@ const Signupform = () => {
                 })
             }
         }
+        finally{
+            setloader(null);
+        }
     }
 
     return (
@@ -70,7 +77,7 @@ const Signupform = () => {
                     className="w-full max-w-sm bg-white shadow-lg rounded-xl p-6 flex flex-col 
                    items-center space-y-5"
                 >
-                    <h1 className="text-2xl font-semibold text-gray-800">Signup Form</h1>
+                    <h1 className="text-2xl font-semibold text-indigo-800">Signup Form</h1>
 
                     <div className="w-2/3 sm:w-1/2 rounded-2xl overflow-hidden shadow">
                         <img src={signup_img} alt="signup" className="w-full h-auto rounded-2xl" />
@@ -108,10 +115,10 @@ const Signupform = () => {
                     />
 
                     <button
-                        className="bg-indigo-600 text-white py-2 rounded-md w-4/5 font-medium
-                     hover:bg-indigo-700 transition"
+                        className="bg-indigo-600 text-white py-2 rounded-md w-4/5 h-[40px] font-medium
+                     hover:bg-indigo-700 transition flex justify-center items-center"
                     >
-                        Register
+                        {loader ? <Loader width={20} height={20}/> : "Register"}
                     </button>
 
                     <p className="text-sm text-gray-700 text-center">

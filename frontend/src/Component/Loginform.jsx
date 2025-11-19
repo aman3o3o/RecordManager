@@ -3,10 +3,13 @@ import { useState } from "react"
 import { useNavigate, Link, Navigate } from 'react-router-dom'
 import axios from "axios"
 import { toast } from 'react-toastify'
+import Loader from "./Loader"
 
 const Loginform = ({ setauthenticated }) => {
 
   let navigate = useNavigate();
+
+  const [loader, setloader] = useState(null);
 
   const [input, setinput] = useState({
     email: "",
@@ -21,6 +24,7 @@ const Loginform = ({ setauthenticated }) => {
 
   const submit = async (e) => {
     e.preventDefault();
+    setloader("login");
     try {
       let res = await axios.post("http://localhost:3000/api/user/login", input);
       if (res.data.success && res.data.admin) {
@@ -53,6 +57,9 @@ const Loginform = ({ setauthenticated }) => {
       else {
         toast.warn("server error");
       }
+    }
+    finally{
+      setloader(null);
     }
   }
 
@@ -112,10 +119,10 @@ const Loginform = ({ setauthenticated }) => {
           </div>
 
           <button
-            className="w-full bg-indigo-600 text-white py-2 rounded-md font-semibold
-                     hover:bg-indigo-700 transition text-sm sm:text-base"
+            className="w-full h-[40px] bg-indigo-600 text-white py-2 rounded-md font-semibold
+                     hover:bg-indigo-700 transition text-sm sm:text-base flex justify-center items-center"
           >
-            Login
+            {loader ? <Loader width={20} height={20}/> : "Login"}
           </button>
 
           <p
