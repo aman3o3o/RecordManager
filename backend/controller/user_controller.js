@@ -117,6 +117,29 @@ let alluser = async (req, res) => {
                 }
             }
         ])
+
+        // let result = await user_model.aggregate([
+        //     {
+        //         $lookup: {
+        //             from: "todos",
+        //             localField: "email",
+        //             foreignField: "email",
+        //             as: "userDetails"
+        //         }
+        //     },
+        //     {
+        //         $match: {
+        //             email: { $ne: "amanadmin@gmail.com" }
+        //         }
+        //     },
+        //     {
+        //         $project: {
+        //             email: 1,
+        //             count: { $size: "$userDetails" }
+        //         }
+        //     }
+        // ])
+
         console.log(result);
         return res.status(200).json({
             success: true,
