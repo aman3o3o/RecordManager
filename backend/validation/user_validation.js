@@ -1,7 +1,7 @@
 const joi = require("joi");
 
 const signup_validate = joi.object({
-    name : joi.string().required().pattern(/[A-Za-z ]+/).min(3).max(50),
+    name : joi.string().required().pattern(/^[A-Za-z]+ [A-Za-z]+$/).min(3).max(50),
     email : joi.string().email().required(),
     password : joi.string().required().min(5).max(10)
 })

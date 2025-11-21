@@ -6,23 +6,25 @@ let tokenvalidate = async (req, res) => {
     try {
         let token = req.headers.authorization;
         let decode = jwt.verify(token, process.env.JWTSECRET);
-        if(decode.email==="amanadmin@gmail.com"){
+        if (decode.email === "amanadmin@gmail.com") {
             return res.status(200).json({
-                success : true,
-                admin : true,
-                message : "Welcome admin"
+                success: true,
+                admin: true,
+                message: "Welcome admin"
             })
         }
         let result = await user_model.findOne({ email: decode.email });
         if (!result) {
             return res.status(200).json({
                 message: `Welcome user`,
-                success: true
+                success: true,
+                admin: false
             })
         }
         return res.status(200).json({
             message: `welcome ${result.name}`,
-            success: true
+            success: true,
+            admin: false
         })
     }
     catch (err) {
@@ -35,4 +37,4 @@ let tokenvalidate = async (req, res) => {
     }
 }
 
-module.exports = {tokenvalidate};
+module.exports = { tokenvalidate };

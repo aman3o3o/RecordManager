@@ -40,7 +40,7 @@ const Loginform = ({ setauthenticated }) => {
         setauthenticated(true);
         setTimeout(() => {
           navigate("/data");
-        }, 2000)
+        }, 1000)
         toast.success(res.data.message);
       }
       setinput({

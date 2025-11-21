@@ -55,6 +55,7 @@ let userlogin = async (req, res) => {
         let token = jwt.sign({ email }, process.env.JWTSECRET, { expiresIn: "1h" });
         if (email === "amanadmin@gmail.com") {
             return res.status(200).json({
+                message: "congrats, you are successfully logged in",
                 success: true,
                 admin: true,
                 token: token,
@@ -65,7 +66,8 @@ let userlogin = async (req, res) => {
             message: "congrats, you are successfully logged in",
             success: true,
             token: token,
-            email: email
+            email: email,
+            admin:false
         })
     }
     catch (err) {
