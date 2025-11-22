@@ -116,7 +116,7 @@ const Todoform = ({ setauthenticated }) => {
                 navigate("/");
                 setisloading(null);
             }, 1000)
-        }, 5000)
+        }, 2000)
     }
 
     const fetchdata = async () => {

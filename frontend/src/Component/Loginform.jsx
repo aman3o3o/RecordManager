@@ -29,10 +29,8 @@ const Loginform = ({ setauthenticated }) => {
       let res = await axios.post("http://localhost:3000/api/user/login", input);
       if (res.data.success && res.data.admin) {
         localStorage.setItem("token", res.data.token);
+        navigate("/totaluser");
         setauthenticated(true);
-        setTimeout(() => {
-          navigate("/totaluser");
-        }, 1000)
       }
       if (res.data.success && !res.data.admin) {
         localStorage.setItem("token", res.data.token);
@@ -58,7 +56,7 @@ const Loginform = ({ setauthenticated }) => {
         toast.warn("server error");
       }
     }
-    finally{
+    finally {
       setloader(null);
     }
   }
@@ -122,7 +120,7 @@ const Loginform = ({ setauthenticated }) => {
             className="w-full h-[40px] bg-indigo-600 text-white py-2 rounded-md font-semibold
                      hover:bg-indigo-700 transition text-sm sm:text-base flex justify-center items-center"
           >
-            {loader ? <Loader width={20} height={20}/> : "Login"}
+            {loader ? <Loader width={20} height={20} /> : "Login"}
           </button>
 
           <p
