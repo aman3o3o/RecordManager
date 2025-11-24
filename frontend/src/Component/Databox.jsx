@@ -6,13 +6,11 @@ import Loader from './Loader';
 // import axios from 'axios'
 import { useState } from 'react';
 
-const Databox = ({ setinput, setauthenticated, fetchdata, fetch }) => {
+const Databox = ({ setinput, setauthenticated, fetch, pingdata,fetchdata}) => {
 
     const navigate = useNavigate();
 
     const [isloading, setisloading] = useState(null);
-
-    const [signupData, setsignupData] = useState([]);
 
     const editf = (country, state, number, dob, company, designation, experience, salary, id) => {
         dob = new Date(dob).toISOString().split("T")[0];
@@ -32,7 +30,7 @@ const Databox = ({ setinput, setauthenticated, fetchdata, fetch }) => {
     const deletef = async (id) => {
         setisloading(id);
         try {
-            let res = await axios.delete(`http://localhost:3000/api/data/delete/${id}`);
+            let res = await axios.delete(`http://localhost:3000/api/data/delete/${id}`,{headers:{authorization:localStorage.getItem("token")}});
             if (res.data.success) {
                 await fetchdata();
                 toast.success(res.data.message);
@@ -53,30 +51,30 @@ const Databox = ({ setinput, setauthenticated, fetchdata, fetch }) => {
         }
     }
 
-    let signup_data_fetch = async () => {
-        try {
-            let res = await axios.get(`http://localhost:3000/api/user/fetch/${localStorage.getItem("email")}`);
-            if (res.data.success) {
-                setsignupData(res.data.signupdata);
-            }
-        }
-        catch (err) {
-            if (err.response) {
-                console.log("user/fetch error -");
-                console.log(err.response);
-                toast.error(err.response.data.message);
-            }
-        }
-    }
+    // let signup_data_fetch = async () => {
+    //     try {
+    //         let res = await axios.get(`http://localhost:3000/api/user/fetch/${pingdata.email}`);
+    //         if (res.data.success) {
+    //             setsignupData(res.data.signupdata);
+    //         }
+    //     }
+    //     catch (err) {
+    //         if (err.response) {
+    //             console.log("user/fetch error -");
+    //             console.log(err.response);
+    //             toast.error(err.response.data.message);
+    //         }
+    //     }
+    // }
 
-    let database_fetching = async () => {
-        await signup_data_fetch();
-        fetchdata();
-    }
+    // let database_fetching = async () => {
+    //     await signup_data_fetch();
+    //     fetchdata();
+    // }
 
-    useEffect(() => {
-        database_fetching();
-    }, [])
+    // useEffect(() => {
+    //     database_fetching();
+    // }, [])
 
     return (
         <>
@@ -86,11 +84,11 @@ const Databox = ({ setinput, setauthenticated, fetchdata, fetch }) => {
                 <div className='mb-[15px] bg-white p-3 rounded shadow-sm border border-blue-200'>
                     <div>
                         <strong className='text-indigo-600'>Your Name : </strong>
-                        <span>{signupData.name}</span>
+                        <span>{pingdata.name}</span>
                     </div>
                     <div>
                         <strong className='text-indigo-600'>Your Email : </strong>
-                        <span>{signupData.email}</span>
+                        <span>{pingdata.email}</span>
                     </div>
                 </div>
 

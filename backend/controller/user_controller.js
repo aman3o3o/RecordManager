@@ -3,6 +3,7 @@ const user_model = require("../model/user_model/user_model");
 const { signup_validate, login_validate } = require("../validation/user_validation");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const util = require("util");
 
 let usersignup = async (req, res) => {
     try {
@@ -52,7 +53,8 @@ let userlogin = async (req, res) => {
                 message: "Invalid credentials"
             })
         }
-        let token = jwt.sign({ email }, process.env.JWTSECRET, { expiresIn: "1h" });
+        let signAsync = util.promisify(jwt.sign);
+        let token = await signAsync({ email }, process.env.JWTSECRET, { expiresIn: "1h" });
         if (email === "amanadmin@gmail.com") {
             return res.status(200).json({
                 message: "congrats, you are successfully logged in",
@@ -67,7 +69,7 @@ let userlogin = async (req, res) => {
             success: true,
             token: token,
             email: email,
-            admin:false
+            admin: false
         })
     }
     catch (err) {
@@ -80,32 +82,40 @@ let userlogin = async (req, res) => {
     }
 }
 
-let userfetch = async (req, res) => {
-    try {
-        let { email } = req.params;
-        let data = await user_model.findOne({ email });
-        if (!data) {
-            return res.status(404).json({
-                message: "signup data is empty"
-            })
-        }
-        return res.status(200).json({
-            success: true,
-            signupdata: data
-        })
-    }
-    catch (err) {
-        console.log("userfetch error -");
-        console.log(err);
-        return res.status(500).json({
-            message: err.message,
-            name: err.name
-        })
-    }
-}
+// let userfetch = async (req, res) => {
+//     try {
+//         let { email } = req.params;
+//         let data = await user_model.findOne({ email });
+//         if (!data) {
+//             return res.status(404).json({
+//                 message: "signup data is empty"
+//             })
+//         }
+//         return res.status(200).json({
+//             success: true,
+//             signupdata: data
+//         })
+//     }
+//     catch (err) {
+//         console.log("userfetch error -");
+//         console.log(err);
+//         return res.status(500).json({
+//             message: err.message,
+//             name: err.name
+//         })
+//     }
+// }
 
 let alluser = async (req, res) => {
     try {
+        let email = req.details.email;
+        if (email !== "amanadmin@gmail.com") {
+            return res.status(403).json({
+                admin: false,
+                message : "you are not authorized to view this page"
+            })
+        }
+
         let signup_data = await user_model.find();
         let todo_data = await data_model.find();
 
@@ -118,15 +128,16 @@ let alluser = async (req, res) => {
             }
         });
 
-        let filtered_result = result.filter(data=>(
+        let filtered_result = result.filter(data => (
             data.email != "amanadmin@gmail.com"
         ))
 
 
         console.log(result);
         return res.status(200).json({
-            success: true,
-            data: filtered_result
+            admin: true,
+            data: filtered_result,
+            message : "welcome Admin"
         })
     }
     catch (err) {
@@ -139,4 +150,4 @@ let alluser = async (req, res) => {
     }
 }
 
-module.exports = { usersignup, userlogin, userfetch, alluser };
+module.exports = { usersignup, userlogin, alluser };

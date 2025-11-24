@@ -1,21 +1,27 @@
 const data_model = require("../model/data_model/data_model");
+const user_model = require("../model/user_model/user_model");
 const { data_validate } = require("../validation/user_validation");
 
 let datafetch = async (req, res) => {
     try {
-        let {email} = req.params;
-        let data = await data_model.find({email : email});
+        let email = req.details.email;
+        let data = await data_model.find({ email: email });
+        let signup_data = await user_model.findOne({ email });
         if (data.length === 0) {
             return res.status(200).json({
                 message: "Data not found",
                 success: true,
-                data: data
+                data: data,
+                name: signup_data.name,
+                email: signup_data.email
             })
         }
         return res.status(200).json({
             success: true,
             message: "data loaded successfully",
-            data: data
+            data: data,
+            name: signup_data.name,
+            email: signup_data.email
         })
     }
     catch (err) {
@@ -30,9 +36,9 @@ let datafetch = async (req, res) => {
 
 let datainsert = async (req, res) => {
     try {
-        let {email} = req.params;
-        let { country,state,number,dob,experience,salary,company,designation} = req.body;
-        let fields = { country,state,number,dob,experience,salary,company,designation ,email};
+        let email = req.details.email;
+        let { country, state, number, dob, experience, salary, company, designation } = req.body;
+        let fields = { country, state, number, dob, experience, salary, company, designation, email };
         await data_validate.validateAsync(fields);
         let data = new data_model(fields);
         await data.save();
@@ -54,8 +60,8 @@ let datainsert = async (req, res) => {
 let dataupdate = async (req, res) => {
     try {
         let { id } = req.params;
-        let { country,state,number,dob,experience,salary,company,designation } = req.body;
-        let data = { country,state,number,dob,experience,salary,company,designation };
+        let { country, state, number, dob, experience, salary, company, designation } = req.body;
+        let data = { country, state, number, dob, experience, salary, company, designation };
         let result = await data_model.updateOne({ _id: id }, { $set: data });
         if (result.modifiedCount === 1) {
             return res.status(200).json({

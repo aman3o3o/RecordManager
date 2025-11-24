@@ -21,12 +21,9 @@ const App = () => {
     return (
         <>
             <Routes>
-                <Route path="/" element={<Navigate to="/login" />} />
-                <Route path="/login" element={authenticated ? <ProtectedRoute authenticated={authenticated}>
-                    <Data setauthenticated={setauthenticated} />
-                </ProtectedRoute>
-                    : <Loginform setauthenticated={setauthenticated} />} />
-                <Route path="/signup" element={authenticated ? <ProtectedRoute authenticated={authenticated} children={<Data />} /> : <Signupform />} />
+                {/* <Route path="/" element={<Navigate to="/login" />} /> */}
+                <Route path="/login" element={authenticated ? <Navigate to="/data"/>: <Loginform setauthenticated={setauthenticated}/>} />
+                <Route path="/signup" element={authenticated ? <Navigate to="/data"/>: <Signupform />} />
                 <Route path="/data" element={<ProtectedRoute authenticated={authenticated}>
                     <Data setauthenticated={setauthenticated} />
                 </ProtectedRoute>} />

@@ -28,17 +28,17 @@ const Loginform = ({ setauthenticated }) => {
     try {
       let res = await axios.post("http://localhost:3000/api/user/login", input);
       if (res.data.success && res.data.admin) {
+        console.log("---------------");
         localStorage.setItem("token", res.data.token);
         navigate("/totaluser");
-        setauthenticated(true);
+        // setauthenticated(true);
       }
       if (res.data.success && !res.data.admin) {
+        console.log("+++++++++++++++++++++++++++++++");
         localStorage.setItem("token", res.data.token);
-        localStorage.setItem("email", res.data.email);
+        // localStorage.setItem("email", res.data.email);
         setauthenticated(true);
-        setTimeout(() => {
-          navigate("/data");
-        }, 1000)
+        navigate("/data");
         toast.success(res.data.message);
       }
       setinput({

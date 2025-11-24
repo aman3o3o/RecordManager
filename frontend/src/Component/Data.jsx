@@ -6,38 +6,66 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import axios from 'axios';
 
-const Data = ({setauthenticated}) => {
+const Data = ({ setauthenticated }) => {
 
-    const [showdata, setshowdata] = useState(false);
+    const [verified, setverified] = useState(false);
 
-    const getdata = async () => {
-        try{
-            let res = await axios.post("http://localhost:3000/api/tokenvalidate",{},{headers:{authorization:localStorage.getItem("token")}})
-            if(res.data.success){
-                setshowdata(true);
+    const [fetch, setfetch] = useState([]);
+
+    const [pingdata, setpingdata] = useState({});
+
+    // const getdata = async () => {
+    //     try{
+    //         let res = await axios.post("http://localhost:3000/api/tokenvalidate",{},{headers:{authorization:localStorage.getItem("token")}})
+    //         if(res.data.success){
+    //             setpingdata(res.data.data);
+    //             setshowdata(true);
+    //             toast.success(res.data.message);
+    //         }
+    //     }
+    //     catch(err){
+    //         if(err.response){
+    //             console.log("tokenvalidate error -");
+    //             console.log(err.response);
+    //             toast.error(err.response.data.message);
+    //         }
+    //         else{
+    //             toast.error("server error");
+    //         }
+    //     }
+    // }
+
+    const fetchdata = async () => {
+        try {
+            let res = await axios.get("http://localhost:3000/api/data/fetch",{headers:{authorization:localStorage.getItem("token")}});
+            if (res.data.success) {
+                setverified(true);
+                setfetch(res.data.data);
+                setpingdata({ name: res.data.name, email: res.data.email })
                 toast.success(res.data.message);
             }
         }
-        catch(err){
-            if(err.response){
-                console.log("tokenvalidate error -");
+        catch (err) {
+            if (err.response) {
+                console.log("/todo/fetch error -");
                 console.log(err.response);
                 toast.error(err.response.data.message);
             }
-            else{
-                toast.error("server error");
+            else {
+                toast.warn("server error");
             }
         }
     }
 
-    useEffect(()=>{
-        getdata();
-    },[])
-  return (
-    <>
-    {showdata ? <Todoform setauthenticated={setauthenticated}/> : <Accessdenied/>}
-    </>
-  )
+    useEffect(() => {
+        // getdata();
+        fetchdata();
+    }, [])
+    return (
+        <>
+            {verified ? <Todoform setauthenticated={setauthenticated} pingdata={pingdata} fetch={fetch} fetchdata={fetchdata}/> : <Accessdenied />}
+        </>
+    )
 }
 
 export default Data

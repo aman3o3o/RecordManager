@@ -23,6 +23,7 @@ let tokenvalidate = async (req, res) => {
         }
         return res.status(200).json({
             message: `welcome ${result.name}`,
+            data : {name:result.name,email:result.email},
             success: true,
             admin: false
         })

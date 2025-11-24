@@ -6,8 +6,8 @@ const Backtologin = () => {
     let navigate = useNavigate();
 
     const back = () => {
-        // navigate("/login");
-        window.location.href = "/login"; 
+        navigate("/login");
+        // window.location.href = "/login"; 
     }
   return (
     <>

@@ -1,10 +1,10 @@
 import React from 'react'
-import Accessdenied from './Accessdenied'
+import Unauthenticated from './Unauthenticated'
 
 const ProtectedRoute = ({ authenticated, children }) => {
     return (
         <>
-            {authenticated ? children : <Accessdenied />}
+            {authenticated ? children : <Unauthenticated/>}
         </>
     )
 }

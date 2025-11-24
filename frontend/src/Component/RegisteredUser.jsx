@@ -13,31 +13,33 @@ const RegisteredUser = ({ setauthenticated }) => {
 
   const [admin, setadmin] = useState(false);
 
-  const tokenvalidate = async () => {
-    try {
-      let res = await axios.post("http://localhost:3000/api/tokenvalidate", {}, { headers: { authorization: localStorage.getItem("token") } })
-      if (res.data.success && res.data.admin) {
-        setadmin(true);
-        toast.success(res.data.message);
-      }
-    }
-    catch (err) {
-      if (err.response) {
-        console.log("api/tokenvalidate error -");
-        console.log(err.response);
-        toast.err(err.response.data.message);
-      }
-      else {
-        toast.error("server error");
-      }
-    }
-  }
+  // const tokenvalidate = async () => {
+  //   try {
+  //     let res = await axios.post("http://localhost:3000/api/tokenvalidate", {}, { headers: { authorization: localStorage.getItem("token") } })
+  //     if (res.data.success && res.data.admin) {
+  //       setadmin(true);
+  //       toast.success(res.data.message);
+  //     }
+  //   }
+  //   catch (err) {
+  //     if (err.response) {
+  //       console.log("api/tokenvalidate error -");
+  //       console.log(err.response);
+  //       toast.err(err.response.data.message);
+  //     }
+  //     else {
+  //       toast.error("server error");
+  //     }
+  //   }
+  // }
 
   const get_alluser = async () => {
     try {
-      let res = await axios.get("http://localhost:3000/api/alluser");
-      if (res.data.success && res.data.data.length > 0) {
+      let res = await axios.get("http://localhost:3000/api/alluser",{headers:{authorization:localStorage.getItem("token")}});
+      if (res.data.admin) {
+        setadmin(true);
         setalluser(res.data.data);
+        toast.success(res.data.message);
       }
     }
     catch (err) {
@@ -53,11 +55,7 @@ const RegisteredUser = ({ setauthenticated }) => {
   }
 
   useEffect(() => {
-    let validation = async () => {
-      await tokenvalidate();
-      await get_alluser();
-    }
-    validation();
+    get_alluser();
   }, [])
 
   const logout = () => {
@@ -110,4 +108,3 @@ const RegisteredUser = ({ setauthenticated }) => {
 }
 
 export default RegisteredUser
-

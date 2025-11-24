@@ -7,13 +7,11 @@ import { useNavigate } from 'react-router-dom'
 import Loader from "./Loader"
 
 
-const Todoform = ({ setauthenticated }) => {
+const Todoform = ({ setauthenticated , pingdata, fetch,fetchdata}) => {
 
     const navigate = useNavigate();
 
     const [isloading, setisloading] = useState(null);
-
-    const [fetch, setfetch] = useState([]);
 
     const [input, setinput] = useState({
         email: "",
@@ -39,7 +37,7 @@ const Todoform = ({ setauthenticated }) => {
         setisloading("submit");
         if (input.id) {
             try {
-                let res = await axios.patch(`http://localhost:3000/api/data/update/${input.id}`, input);
+                let res = await axios.patch(`http://localhost:3000/api/data/update/${input.id}`,input,{headers:{authorization:localStorage.getItem("token")}});
                 if (res.data.success) {
                     await fetchdata();
                     toast.success(res.data.message);
@@ -72,7 +70,7 @@ const Todoform = ({ setauthenticated }) => {
         }
         else {
             try {
-                let res = await axios.post(`http://localhost:3000/api/data/insert/${localStorage.getItem("email")}`, input);
+                let res = await axios.post(`http://localhost:3000/api/data/insert`,input,{headers : {authorization : localStorage.getItem("token")}});
                 if (res.data.success) {
                     await fetchdata();
                     toast.success(res.data.message);
@@ -119,25 +117,25 @@ const Todoform = ({ setauthenticated }) => {
         }, 2000)
     }
 
-    const fetchdata = async () => {
-        try {
-            let res = await axios.get(`http://localhost:3000/api/data/fetch/${localStorage.getItem("email")}`);
-            if (res.data.success) {
-                setfetch(res.data.data);
-                toast.success(res.data.message);
-            }
-        }
-        catch (err) {
-            if (err.response) {
-                console.log("/todo/fetch error -");
-                console.log(err.response);
-                toast.error(err.response.data.message);
-            }
-            else {
-                toast.warn("server error");
-            }
-        }
-    }
+    // const fetchdata = async () => {
+    //     try {
+    //         let res = await axios.post("http://localhost:3000/api/data/fetch",{},{headers : {authorization : localStorage.getItem("token")}});
+    //         if (res.data.success) {
+    //             setfetch(res.data.data);
+    //             toast.success(res.data.message);
+    //         }
+    //     }
+    //     catch (err) {
+    //         if (err.response) {
+    //             console.log("/todo/fetch error -");
+    //             console.log(err.response);
+    //             toast.error(err.response.data.message);
+    //         }
+    //         else {
+    //             toast.warn("server error");
+    //         }
+    //     }
+    // }
 
     return (
         <>
@@ -266,7 +264,7 @@ const Todoform = ({ setauthenticated }) => {
 
                     </div>
                 </form>
-                <Databox setinput={setinput} setauthenticated={setauthenticated} fetch={fetch} fetchdata={fetchdata} />
+                <Databox setinput={setinput} setauthenticated={setauthenticated} fetch={fetch} pingdata={pingdata} fetchdata={fetchdata}/>
             </div>
         </>
     )
