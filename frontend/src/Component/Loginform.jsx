@@ -7,6 +7,8 @@ import Loader from "./Loader"
 
 const Loginform = ({ setauthenticated }) => {
 
+  console.log("loginform jsx -");
+
   let navigate = useNavigate();
 
   const [loader, setloader] = useState(null);
@@ -27,18 +29,12 @@ const Loginform = ({ setauthenticated }) => {
     setloader("login");
     try {
       let res = await axios.post("http://localhost:3000/api/user/login", input);
-      if (res.data.success && res.data.admin) {
-        console.log("---------------");
+      if (res.data.success) {
         localStorage.setItem("token", res.data.token);
-        navigate("/totaluser");
-        // setauthenticated(true);
-      }
-      if (res.data.success && !res.data.admin) {
-        console.log("+++++++++++++++++++++++++++++++");
-        localStorage.setItem("token", res.data.token);
-        // localStorage.setItem("email", res.data.email);
-        setauthenticated(true);
         navigate("/data");
+        setTimeout(()=>{
+          setauthenticated(true);
+        },1)
         toast.success(res.data.message);
       }
       setinput({

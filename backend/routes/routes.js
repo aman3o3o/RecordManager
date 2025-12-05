@@ -1,5 +1,5 @@
 const express = require("express");
-const { datafetch, datainsert, dataupdate, datadelete } = require("../controller/data_controller");
+const { datafetch, datainsert, dataupdate, datadelete, datafetchE } = require("../controller/data_controller");
 const { usersignup, userlogin, alluser } = require("../controller/user_controller");
 // const {userfetch} = require("../controller/user_controller");
 const { tokenvalidate } = require("../controller/token_controller");
@@ -10,6 +10,7 @@ const { tokenValidate } = require("../middleware/tokenvalidate");
 let dataroutes = express.Router();
 
 dataroutes.get("/data/fetch",tokenValidate,datafetch);
+dataroutes.get("/data/fetchE/:email",tokenValidate,datafetchE);
 dataroutes.post("/data/insert",tokenValidate,datainsert);
 dataroutes.patch("/data/update/:id",tokenValidate,dataupdate);
 dataroutes.delete("/data/delete/:id",tokenValidate,datadelete);

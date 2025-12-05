@@ -139,15 +139,15 @@ const Todoform = ({ setauthenticated , pingdata, fetch,fetchdata}) => {
 
     return (
         <>
-            <div className='flex h-[100vh] overflow-hidden border-[3px] border-blue-400 bg-[#f8fbff]'>
+            <div className='flex h-[100vh] overflow-hidden border-[20px] border-indigo-200 bg-[#f8fbff]'>
                 <form onSubmit={submit} className='flex-4 flex flex-col justify-center items-center text-gray-800'>
                     <h1 className='text-xl font-bold mb-[10px] text-indigo-600'>Input Table</h1>
-                    <div className='w-[70%] h-[60%] flex flex-col justify-evenly'>
+                    <div className='w-full h-[60%] flex flex-col justify-evenly items-center'>
 
-                        <div className='w-[70%] ml-[10px]'>
-                            <label htmlFor='country' className='cursor-pointer text-indigo-600'>Country : </label>
+                        <div className='w-[80%] ml-[10px]'>
+                            {/* <label htmlFor='country' className='cursor-pointer text-indigo-600'>Country : </label> */}
                             <input
-                                className="bg-white text-gray-900 border border-indigo-300 px-2 rounded"
+                                className="bg-white text-gray-900 border border-indigo-300 px-2 rounded w-full"
                                 placeholder="Enter country"
                                 value={input.country}
                                 name="country"
@@ -156,10 +156,10 @@ const Todoform = ({ setauthenticated , pingdata, fetch,fetchdata}) => {
                                 required />
                         </div>
 
-                        <div className='w-[70%] ml-[10px]'>
-                            <label htmlFor='state' className='cursor-pointer text-indigo-600'>State : </label>
+                        <div className='w-[80%] ml-[10px]'>
+                            {/* <label htmlFor='state' className='cursor-pointer text-indigo-600'>State : </label> */}
                             <input
-                                className="bg-white text-gray-900 border border-indigo-300 px-2 rounded"
+                                className="bg-white text-gray-900 border border-indigo-300 px-2 rounded w-full"
                                 placeholder="Enter state"
                                 value={input.state}
                                 name="state"
@@ -168,11 +168,11 @@ const Todoform = ({ setauthenticated , pingdata, fetch,fetchdata}) => {
                                 required />
                         </div>
 
-                        <div className='w-[70%] ml-[10px]'>
-                            <label htmlFor='dob' className='cursor-pointer text-indigo-600'>Dob : </label>
+                        <div className='w-[80%] ml-[10px]'>
+                            {/* <label htmlFor='dob' className='cursor-pointer text-indigo-600'>Dob : </label> */}
                             <input
                                 type="date"
-                                className="bg-white text-gray-900 border border-indigo-300 px-2 rounded"
+                                className="bg-white text-gray-900 border border-indigo-300 px-2 rounded w-full"
                                 placeholder="Enter date of birth"
                                 value={input.dob}
                                 name="dob"
@@ -181,10 +181,10 @@ const Todoform = ({ setauthenticated , pingdata, fetch,fetchdata}) => {
                                 required />
                         </div>
 
-                        <div className='w-[70%] ml-[10px]'>
-                            <label htmlFor='number' className='cursor-pointer text-indigo-600'>Number : </label>
+                        <div className='w-[80%] ml-[10px]'>
+                            {/* <label htmlFor='number' className='cursor-pointer text-indigo-600'>Number : </label> */}
                             <input
-                                className="bg-white text-gray-900 border border-indigo-300 px-2 rounded"
+                                className="bg-white text-gray-900 border border-indigo-300 px-2 rounded w-full"
                                 placeholder="Enter number"
                                 value={input.number}
                                 name="number"
@@ -193,10 +193,10 @@ const Todoform = ({ setauthenticated , pingdata, fetch,fetchdata}) => {
                                 required />
                         </div>
 
-                        <div className='w-[70%] ml-[10px]'>
-                            <label htmlFor='company' className='cursor-pointer text-indigo-600'>Company : </label>
+                        <div className='w-[80%] ml-[10px]'>
+                            {/* <label htmlFor='company' className='cursor-pointer text-indigo-600'>Company : </label> */}
                             <input
-                                className="bg-white text-gray-900 border border-indigo-300 px-2 rounded"
+                                className="bg-white text-gray-900 border border-indigo-300 px-2 rounded w-full"
                                 placeholder="Enter company"
                                 value={input.company}
                                 name="company"
@@ -205,10 +205,10 @@ const Todoform = ({ setauthenticated , pingdata, fetch,fetchdata}) => {
                                 required />
                         </div>
 
-                        <div className='w-[70%] ml-[10px]'>
-                            <label htmlFor='designation' className='cursor-pointer text-indigo-600'>Designation : </label>
+                        <div className='w-[80%] ml-[10px]'>
+                            {/* <label htmlFor='designation' className='cursor-pointer text-indigo-600'>Designation : </label> */}
                             <input
-                                className="bg-white text-gray-900 border border-indigo-300 px-2 rounded"
+                                className="bg-white text-gray-900 border border-indigo-300 px-2 rounded w-full"
                                 placeholder="Enter designation"
                                 value={input.designation}
                                 name="designation"
@@ -217,10 +217,10 @@ const Todoform = ({ setauthenticated , pingdata, fetch,fetchdata}) => {
                                 required />
                         </div>
 
-                        <div className='w-[70%] ml-[10px]'>
-                            <label htmlFor='salary' className='cursor-pointer text-indigo-600'>Salary : </label>
+                        <div className='w-[80%] ml-[10px]'>
+                            {/* <label htmlFor='salary' className='cursor-pointer text-indigo-600'>Salary : </label> */}
                             <input
-                                className="bg-white text-gray-900 border border-indigo-300 px-2 rounded"
+                                className="bg-white text-gray-900 border border-indigo-300 px-2 rounded w-full"
                                 placeholder="Enter salary"
                                 value={input.salary}
                                 name="salary"
@@ -229,10 +229,10 @@ const Todoform = ({ setauthenticated , pingdata, fetch,fetchdata}) => {
                                 required />
                         </div>
 
-                        <div className='w-[70%] ml-[10px]'>
-                            <label htmlFor='experience' className='cursor-pointer text-indigo-600'>Experience : </label>
+                        <div className='w-[80%] ml-[10px]'>
+                            {/* <label htmlFor='experience' className='cursor-pointer text-indigo-600'>Experience : </label> */}
                             <input
-                                className="bg-white text-gray-900 border border-indigo-300 px-2 rounded"
+                                className="bg-white text-gray-900 border border-indigo-300 px-2 rounded w-full"
                                 placeholder="Enter experience"
                                 value={input.experience}
                                 name="experience"

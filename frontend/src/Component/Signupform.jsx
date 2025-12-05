@@ -7,6 +7,8 @@ import Loader from './Loader'
 
 const Signupform = () => {
 
+    console.log("signupform jsx -");
+
     const navigate = useNavigate();
 
     const [loader, setloader] = useState(null);

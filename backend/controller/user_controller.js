@@ -55,21 +55,12 @@ let userlogin = async (req, res) => {
         }
         let signAsync = util.promisify(jwt.sign);
         let token = await signAsync({ email }, process.env.JWTSECRET, { expiresIn: "1h" });
-        if (email === "amanadmin@gmail.com") {
-            return res.status(200).json({
-                message: "congrats, you are successfully logged in",
-                success: true,
-                admin: true,
-                token: token,
-                email: email
-            })
-        }
+        
         return res.status(200).json({
             message: "congrats, you are successfully logged in",
             success: true,
             token: token,
-            email: email,
-            admin: false
+            email: email
         })
     }
     catch (err) {

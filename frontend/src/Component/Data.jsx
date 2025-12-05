@@ -5,8 +5,15 @@ import { toast } from 'react-toastify';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import axios from 'axios';
+import { useLocation, useParams } from 'react-router-dom';
 
 const Data = ({ setauthenticated }) => {
+
+    console.log("Data jsx -");
+
+    let locaton = useLocation();
+
+    console.log("locaton.state?.email",locaton.state?.email);
 
     const [verified, setverified] = useState(false);
 
@@ -37,7 +44,19 @@ const Data = ({ setauthenticated }) => {
 
     const fetchdata = async () => {
         try {
-            let res = await axios.get("http://localhost:3000/api/data/fetch",{headers:{authorization:localStorage.getItem("token")}});
+            console.log("locaton.state?.email",locaton.state?.email);
+            if(location.state?.email){
+                console.log("email",email);
+                var res = await axios.get(`http://localhost:3000/api/data/fetchE/${location.state.email}`,{headers:{authorization:localStorage.getItem("token")}});
+            }
+            // if(localStorage.getItem("email")){
+            //     var email = localStorage.getItem("email");
+            //     var res = await axios.post("http://localhost:3000/api/data/fetchE",{email},{headers:{authorization:localStorage.getItem("token")}});
+            // }
+            else{
+                console.log("token");
+                var res = await axios.get("http://localhost:3000/api/data/fetch",{headers:{authorization:localStorage.getItem("token")}});
+            }
             if (res.data.success) {
                 setverified(true);
                 setfetch(res.data.data);
@@ -47,7 +66,7 @@ const Data = ({ setauthenticated }) => {
         }
         catch (err) {
             if (err.response) {
-                console.log("/todo/fetch error -");
+                console.log("/data/fetch error -");
                 console.log(err.response);
                 toast.error(err.response.data.message);
             }
@@ -58,9 +77,11 @@ const Data = ({ setauthenticated }) => {
     }
 
     useEffect(() => {
+        console.log("Data component useeffect");
+        console.log("locaton.state?.email useffect",locaton.state?.email);
         // getdata();
         fetchdata();
-    }, [])
+    },[])
     return (
         <>
             {verified ? <Todoform setauthenticated={setauthenticated} pingdata={pingdata} fetch={fetch} fetchdata={fetchdata}/> : <Accessdenied />}
@@ -69,3 +90,13 @@ const Data = ({ setauthenticated }) => {
 }
 
 export default Data
+
+
+
+
+
+
+
+
+
+// const showData = (email) => { navigate("/data",{state:{email}}) } /data route - component - const fetchdata = async () => { try { if(location.state?.email){ console.log("email"); var res = await axios.get(http://localhost:3000/api/data/fetchE/${location.state.email},{headers:{authorization:localStorage.getItem("token")}}); } // if(localStorage.getItem("email")){ // var email = localStorage.getItem("email"); // var res = await axios.post("http://localhost:3000/api/data/fetchE",{email},{headers:{authorization:localStorage.getItem("token")}}); // } else{ console.log("token"); var res = await axios.get("http://localhost:3000/api/data/fetch",{headers:{authorization:localStorage.getItem("token")}}); } if (res.data.success) { setverified(true); setfetch(res.data.data); setpingdata({ name: res.data.name, email: res.data.email }) toast.success(res.data.message); } } catch (err) { if (err.response) { console.log("/data/fetch error -"); console.log(err.response); toast.error(err.response.data.message); } else { toast.warn("server error"); } } } useEffect(() => { console.log("Data component useeffect"); // getdata(); fetchdata(); },[]) bhai yaha sirf second wala data/fetch api kyu run ho raha hai ? console me sirf token print ho raha hai ? kuch samaj nahi aaya bhai

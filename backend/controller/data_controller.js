@@ -106,4 +106,56 @@ let datadelete = async (req, res) => {
         })
     }
 }
-module.exports = { datafetch, datainsert, dataupdate, datadelete }
+
+// const datafetchE = async (req,res) => {
+//     try{
+//         console.log("req.body",req.body);
+//         let {email} = req.body;
+//         let email_check = await user_model.findOne({email});
+//         if(!email_check){
+//             return res.status(404).json({
+//                 message : "email not exist"
+//             })
+//         }
+//         let data = await data_model.find({email});
+//         return res.status(200).json({
+//             success : true,
+//             message : "data loaded successfully",
+//             data : data,
+//             name : email_check.name,
+//             email : email_check.email
+//         })
+//     }
+//     catch(err){
+//         console.log("datafetchE error -");
+//         console.log(err);
+//         return res.status(500).json({
+//             message : err.message,
+//             name : err.name
+//         })
+//     }
+// }
+
+let datafetchE = async (req,res) => {
+    try{
+        let {email} = req.params;
+        data = await data_model.find({email});
+        result = await user_model.findOne({email});
+        name = result.name
+        return res.status(200).json({
+            data : data,
+            success : true,
+            name : name,
+            email : email
+        })
+    }
+    catch(err){
+        console.log("datafetch/email error -");
+        console.log(err);
+        return res.status(500).json({
+            message : err.message,
+            name : err.name
+        })
+    }
+}
+module.exports = { datafetch, datainsert, dataupdate, datadelete , datafetchE}

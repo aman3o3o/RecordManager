@@ -76,9 +76,14 @@ const Databox = ({ setinput, setauthenticated, fetch, pingdata,fetchdata}) => {
     //     database_fetching();
     // }, [])
 
+    const moveadmin = () => {
+        navigate("/totaluser");
+    }
+
     return (
         <>
             <div className='flex-6 overflow-auto flex flex-col items-center bg-[#f8fbff] text-gray-800'>
+            <div className='ml-auto mr-5 mt-3 hover:bg-gray-100 border-[1px] px-[5px] rounded-[50px] cursor-pointer' onClick={moveadmin}>Admin Panel</div>
                 <h1 className='mt-[50px] mb-[10px] text-xl font-bold text-indigo-600'>Data Table</h1>
 
                 <div className='mb-[15px] bg-white p-3 rounded shadow-sm border border-blue-200'>

@@ -7,6 +7,8 @@ import Accessdenied from './Accessdenied';
 
 const RegisteredUser = ({ setauthenticated }) => {
 
+  console.log("registereduser jsx -");
+
   let navigate = useNavigate();
 
   const [alluser, setalluser] = useState([]);
@@ -54,6 +56,27 @@ const RegisteredUser = ({ setauthenticated }) => {
     }
   }
 
+  // const showData = async (email) => {
+  //   // try{
+  //   //   let res = await axios.post("http://localhost:3000/api/data/fetchE",{email},{headers:{authorization:localStorage.getItem("token")}});
+  //   //   if(res.data.success){
+
+  //   //   }
+  //   // }
+  //   // catch(err){
+
+  //   // }
+  //   if(localStorage.getItem("email")){
+  //     localStorage.removeItem("email")
+  //   }
+  //   localStorage.setItem("email",email);
+  //   navigate("/data");
+  // }
+
+  const showData = (email) => {
+    navigate("/data",{state:{email:email}});
+  }
+
   useEffect(() => {
     get_alluser();
   }, [])
@@ -87,7 +110,7 @@ const RegisteredUser = ({ setauthenticated }) => {
                 return (
                   <tr>
                     <td className='px-1 border-[1px] text-center font-[600]'>{index + 1}</td>
-                    <td className='px-1 border-[1px] text-center font-[600]'>{data.email}</td>
+                    <td className='px-1 border-[1px] text-center font-[600] cursor-pointer hover:underline' onClick={()=>{showData(data.email)}}>{data.email}</td>
                     <td className='px-1 border-[1px] text-center font-[600]'>{data.count}</td>
                   </tr>
                 );
