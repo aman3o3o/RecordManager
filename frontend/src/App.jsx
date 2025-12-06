@@ -9,7 +9,7 @@ import { ToastContainer, Bounce } from 'react-toastify'
 import { useState } from 'react'
 import Unauthenticated from './Component/Unauthenticated'
 import Data from './Component/Data'
-import ForgotPassword from './Component/Forgotpassword'
+import ForgotPassword from './Component/ForgotPassword'
 import Resetpassword from './Component/Resetpassword'
 import Loader from './Component/Loader'
 import { lazy, Suspense } from 'react';
@@ -31,7 +31,7 @@ const App = () => {
                     <Route path="/" element={<Navigate to="/login" />} />
                     <Route path="/login" element={authenticated ? <Navigate to="/data" /> : <Loginform setauthenticated={setauthenticated} />} />
                     <Route path="/signup" element={authenticated ? <Navigate to="/data" /> : <Signupform />} />
-                    <Route path="/data" element={<ProtectedRoute authenticated={authenticated}>
+                    <Route path="/data/:email?" element={<ProtectedRoute authenticated={authenticated}>
                         <Data setauthenticated={setauthenticated} />
                     </ProtectedRoute>} />
                     <Route path="*" element={<WrongRoute />} />

@@ -29,7 +29,7 @@ const Signupform = () => {
         setloader("register");
         e.preventDefault();
         try {
-            let res = await axios.post("http://localhost:3000/api/user/signup", input);
+            let res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/user/signup`, input);
             if (res.data.success) {
                 setTimeout(() => {
                     navigate("/login");

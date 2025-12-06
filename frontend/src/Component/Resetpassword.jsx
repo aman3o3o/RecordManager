@@ -23,7 +23,7 @@ const Resetpassword = () => {
     const submit = async (e) => {
         e.preventDefault();
         try {
-            let res = await axios.post(`http://localhost:3000/api/resetpassword/${token}`, input);
+            let res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/resetpassword/${token}`, input);
             if (res.data.success) {
                 toast.success(res.data.message);
                 setinput({

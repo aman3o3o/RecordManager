@@ -28,7 +28,7 @@ const Loginform = ({ setauthenticated }) => {
     e.preventDefault();
     setloader("login");
     try {
-      let res = await axios.post("http://localhost:3000/api/user/login", input);
+      let res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/user/login`, input);
       if (res.data.success) {
         localStorage.setItem("token", res.data.token);
         navigate("/data");

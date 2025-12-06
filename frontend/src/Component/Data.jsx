@@ -11,9 +11,7 @@ const Data = ({ setauthenticated }) => {
 
     console.log("Data jsx -");
 
-    let locaton = useLocation();
-
-    console.log("locaton.state?.email",locaton.state?.email);
+    let {email} = useParams();
 
     const [verified, setverified] = useState(false);
 
@@ -44,18 +42,15 @@ const Data = ({ setauthenticated }) => {
 
     const fetchdata = async () => {
         try {
-            console.log("locaton.state?.email",locaton.state?.email);
-            if(location.state?.email){
-                console.log("email",email);
-                var res = await axios.get(`http://localhost:3000/api/data/fetchE/${location.state.email}`,{headers:{authorization:localStorage.getItem("token")}});
+            if(email){
+                var res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/data/fetchE/${email}`,{headers:{authorization:localStorage.getItem("token")}});
             }
             // if(localStorage.getItem("email")){
             //     var email = localStorage.getItem("email");
             //     var res = await axios.post("http://localhost:3000/api/data/fetchE",{email},{headers:{authorization:localStorage.getItem("token")}});
             // }
             else{
-                console.log("token");
-                var res = await axios.get("http://localhost:3000/api/data/fetch",{headers:{authorization:localStorage.getItem("token")}});
+                var res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/data/fetch`,{headers:{authorization:localStorage.getItem("token")}});
             }
             if (res.data.success) {
                 setverified(true);
@@ -78,7 +73,6 @@ const Data = ({ setauthenticated }) => {
 
     useEffect(() => {
         console.log("Data component useeffect");
-        console.log("locaton.state?.email useffect",locaton.state?.email);
         // getdata();
         fetchdata();
     },[])

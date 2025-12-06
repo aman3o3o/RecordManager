@@ -37,7 +37,7 @@ const Todoform = ({ setauthenticated , pingdata, fetch,fetchdata}) => {
         setisloading("submit");
         if (input.id) {
             try {
-                let res = await axios.patch(`http://localhost:3000/api/data/update/${input.id}`,input,{headers:{authorization:localStorage.getItem("token")}});
+                let res = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/data/update/${input.id}`,input,{headers:{authorization:localStorage.getItem("token")}});
                 if (res.data.success) {
                     await fetchdata();
                     toast.success(res.data.message);
@@ -70,7 +70,7 @@ const Todoform = ({ setauthenticated , pingdata, fetch,fetchdata}) => {
         }
         else {
             try {
-                let res = await axios.post(`http://localhost:3000/api/data/insert`,input,{headers : {authorization : localStorage.getItem("token")}});
+                let res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/data/insert`,input,{headers : {authorization : localStorage.getItem("token")}});
                 if (res.data.success) {
                     await fetchdata();
                     toast.success(res.data.message);

@@ -19,7 +19,7 @@ const ForgotPassword = () => {
     const submit = async (e) => {
         e.preventDefault();
         try {
-            let res = await axios.post("http://localhost:3000/api/forgotpassword", input);
+            let res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/forgotpassword`, input);
             if (res.data.success) {
                 setinput({
                     email: ""

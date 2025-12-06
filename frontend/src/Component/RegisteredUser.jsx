@@ -37,7 +37,7 @@ const RegisteredUser = ({ setauthenticated }) => {
 
   const get_alluser = async () => {
     try {
-      let res = await axios.get("http://localhost:3000/api/alluser",{headers:{authorization:localStorage.getItem("token")}});
+      let res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/alluser`,{headers:{authorization:localStorage.getItem("token")}});
       if (res.data.admin) {
         setadmin(true);
         setalluser(res.data.data);
@@ -74,7 +74,7 @@ const RegisteredUser = ({ setauthenticated }) => {
   // }
 
   const showData = (email) => {
-    navigate("/data",{state:{email:email}});
+    navigate(`/data/${email}`);
   }
 
   useEffect(() => {

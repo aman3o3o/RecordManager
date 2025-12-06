@@ -30,7 +30,7 @@ const Databox = ({ setinput, setauthenticated, fetch, pingdata,fetchdata}) => {
     const deletef = async (id) => {
         setisloading(id);
         try {
-            let res = await axios.delete(`http://localhost:3000/api/data/delete/${id}`,{headers:{authorization:localStorage.getItem("token")}});
+            let res = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/data/delete/${id}`,{headers:{authorization:localStorage.getItem("token")}});
             if (res.data.success) {
                 await fetchdata();
                 toast.success(res.data.message);
