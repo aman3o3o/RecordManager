@@ -14,7 +14,7 @@ A web app where users can signup, login and manage their own records using CRUD 
 
 ## Technologies used
 - MongoDB | Express | React | Node
-- Jwt | bcrypt | Nodemailer
+- Jwt | Axios | bcrypt | Nodemailer
 
 
 ## How to run from Docker
@@ -22,7 +22,7 @@ A web app where users can signup, login and manage their own records using CRUD 
 
 - Backend Docker image link - [click here](https://hub.docker.com/repository/docker/aman3o3o/backend_image) | use docker pull aman3o3o/backend_image for fetching backend image
 
-- docker-compose.yml - [view compose file](./docker-compose.yml) (click here to view the frontend , backend compose file)
+- docker-compose.yml - [view compose file](./docker-compose.yml) (click here to view the frontend , backend compose file) | To run the project using compose file please use `docker compose up -d` command
 
 - backend env file - [view backend env file](./backend/.env.example) (click here to view backend env file)
 

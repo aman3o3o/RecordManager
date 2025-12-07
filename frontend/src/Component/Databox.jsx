@@ -97,7 +97,7 @@ const Databox = ({ setinput, setauthenticated, fetch, pingdata,fetchdata}) => {
                     </div>
                 </div>
 
-                <table className="border-separate bg-white">
+                <table className="border-separate bg-white text-[15px] px-[10px]">
                     <tr className= 'text-indigo-600'>
                         <th className="border-[1px] px-[4px]">Country</th>
                         <th className="border-[1px] px-[4px]">State</th>
@@ -113,15 +113,15 @@ const Databox = ({ setinput, setauthenticated, fetch, pingdata,fetchdata}) => {
                     {fetch.length > 0 ? (
                         fetch.map((data) => {
                             return (
-                                <tr className='hover:bg-blue-50'>
-                                    <td className='text-center border-[1px] px-[4px]'>{data.country}</td>
-                                    <td className='text-center border-[1px] px-[4px]'>{data.state}</td>
-                                    <td className='text-center border-[1px] px-[4px]'>{data.number}</td>
-                                    <td className='text-center border-[1px] px-[4px]'>{data.dob}</td>
-                                    <td className='text-center border-[1px] px-[4px]'>{data.company}</td>
-                                    <td className='text-center border-[1px] px-[4px]'>{data.designation}</td>
-                                    <td className='text-center border-[1px] px-[4px]'>{data.experience}</td>
-                                    <td className='text-center border-[1px] px-[4px]'>{data.salary}</td>
+                                <tr>
+                                    <td className='text-center border-[1px] px-[4px] hover:bg-blue-50'>{data.country}</td>
+                                    <td className='text-center border-[1px] px-[4px] hover:bg-blue-50'>{data.state}</td>
+                                    <td className='text-center border-[1px] px-[4px] hover:bg-blue-50'>{data.number}</td>
+                                    <td className='text-center border-[1px] px-[4px] hover:bg-blue-50'>{data.dob}</td>
+                                    <td className='text-center border-[1px] px-[4px] hover:bg-blue-50'>{data.company}</td>
+                                    <td className='text-center border-[1px] px-[4px] hover:bg-blue-50'>{data.designation}</td>
+                                    <td className='text-center border-[1px] px-[4px] hover:bg-blue-50'>{data.experience}</td>
+                                    <td className='text-center border-[1px] px-[4px] hover:bg-blue-50'>{data.salary}</td>
 
                                     <td className='text-center border-[1px] px-[4px]'>
                                         <button
